@@ -1,0 +1,20 @@
+ALGORITHM phrase
+VAR
+    c:CHAR;
+    nbc,nbm,nbv:INTEGER=0;
+BEGIN
+    write("érire votre phrase");
+    read("c");
+    WHILE (c <>".") DO
+      nbc:=nbc+1;
+        IF (c=" ") THEN
+      nbm:=nbm+1;
+        END_IF
+        IF (c="a"or c="e"or c="i"or c="u"or c ="y"or c="o") THEN
+            nbv:=nbv+1;
+        END_IF
+    END_WHILE
+    write("votre nombre de caractére est",nbc);
+    write("votre nombre de mot est",nbm);
+    write("votre nombre de voelle est",nbv);
+END 
