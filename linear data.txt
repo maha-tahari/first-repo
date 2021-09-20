@@ -1,0 +1,137 @@
+ALGORITHM Sum_distinct_elements
+VAR
+    tab1 : table of integer(10);
+    tab2 : table of integer(10);
+    i, j, sum : integer;
+    c:char;
+    sum:=0;
+    
+BEGIN
+    //initializing tab1
+    FOR i 0 TO 10 STEP step  DO
+        write('Enter an integer of tab1');
+        read(c);
+        IF (c !isInteger) THEN
+            break;
+        END_IF
+         tab1[i]:=(integer) c;  
+    END_FOR
+    //initializing tab2
+    FOR i 0 TO 10 STEP step  DO
+        write('Enter an integer of tab2');
+        read(c);
+        IF (c !isInteger) THEN
+            break;
+        END_IF
+         tab2[i]:=(integer) c;  
+    END_FOR
+    //la somme des elements distincts
+    FOR i FROM 0 TO tab1.length-1 STEP 1  DO
+        FOR j FROM 0 TO tab2.length-1 STEP step  DO
+            IF (tab1[i]==tab2[j]) THEN
+                break;
+            END_IF
+            IF (j==tab2.length) THEN
+                sum:=sum+tab1[i]
+            END_IF
+        END_FOR
+    END_FOR
+    FOR i FROM 0 TO tab2.length-1 STEP 1  DO
+        FOR j FROM 0 TO tab1.length-1 STEP step  DO
+            IF (tab2[i]==tab1[j]) THEN
+                break;
+            END_IF
+            IF (j==tab1.length) THEN
+                sum:=sum+tab2[i]
+    END_FOR
+    write('The sum of distinct elements in Array 1 and 2 is', sum);
+END.
+// 2éme solution avec la htable
+ALGORITHM Sum_distinct_elements_using_a_hash_tab
+VAR
+    htab1 : hashtable <integer, integer>
+    htab2 : hashtable <integer, integer>
+    i,j :integer;
+    htab : hashtable <integer, integer>
+    count : integer;
+    tab1 : table of integer(10);
+    tab2 : table of integer(10);
+    c:char;
+    sum:integer:=0;
+BEGIN
+    //Initializing htab1
+    write('Enter an integer of htab1');
+    read(c);
+    i:=0; 
+    WHILE (c isInteger) DO
+        htab1.insert((integer)c, i);
+        i++;
+        write('Enter an integer of htab1');
+        read(c);
+    END_WHILE
+    //Initializing htab2
+    i:=0;
+    write('Enter an integer of htab2');
+    read(c);
+    WHILE (c isInteger) DO
+        htab2.insert((integer)c, i);
+        i++;
+        write('Enter an integer of htab2');
+        read(c);
+    END_WHILE
+
+    i:=0;
+    WHILE (htab1.lookup(i)) DO
+        j:=0;
+        WHILE (htab2.lookup(j)) DO
+            IF (htab1.get(i)=htab2.get(j)) THEN
+                break;
+            END_IF
+        END_WHILE
+        IF (htab2.lookup(j)=false) THEN
+            sum:=sum+htab1.get(i);
+        END_IF
+    END_WHILE
+BEGIN
+
+    i:=0;
+    WHILE (htab2.lookup(i)) DO
+        j:=0;
+        WHILE (htab1.lookup(j)) DO
+            IF (htab2.get(i)=htab1.get(j)) THEN
+                break;
+            END_IF
+        END_WHILE
+        IF (htab1.lookup(j)=false) THEN
+            sum:=sum+htab2.get(i);
+        END_IF
+    END_WHILE
+    write('The sum of distinct elements in Array 1 and 2 is', sum);
+    END.
+FOR i FROM 0 TO tab1.length-1 STEP 1  DO
+    IF (htab.lookup(tab1[i])) THEN
+        htab.get(tab1[i]):=htab.get(tab1[i])+1
+    ELSE
+        htab.insert(tab1[i]),1)
+    END_IF
+END_FOR
+FOR i FROM 0 TO tab2.length-1 STEP 1  DO
+    IF (htab.lookup(tab2[i])) THEN
+        htab.get(tab2[i]):=htab.get(tab2[i])+1
+    ELSE
+        htab.insert(tab2[i]),1)
+    END_IF
+END_FOR
+sum:=0;
+FOR i FROM 0 TO tab1.length STEP 1  DO
+    IF (htab.get(tab1[i])=1) THEN
+        sum:=sum+tab1[i]
+    END_IF
+END_FOR
+FOR i FROM 0 TO tab1.length STEP 1  DO
+    IF (htab.get(tab1[i])=1) THEN
+        sum:=sum+tab1[i]
+    END_IF
+END_FOR
+write('The sum of the different elements in both tables is ', sum)
+END.
